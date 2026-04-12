@@ -32,7 +32,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CazyUndee/agentifyer"
-  },
-  "readme": "README.md"
+    "url": "git+https://github.com/CazyUndee/agentifyer.git"
+  }
 }
