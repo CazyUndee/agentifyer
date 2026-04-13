@@ -21,6 +21,7 @@ function printHelp(): void {
 
 Usage:
   agentifyer init
+  agentifyer upgrade
   agentifyer setup
   agentifyer spawn <agent-id> [role]
   agentifyer send --to <agent-id> --subject <text> --body <text> [--from <agent-id>] [--type <kind>] [--priority <level>] [--thread <thread-id>] [--role <agent-role>] [--requires-response]
@@ -298,6 +299,15 @@ async function main(): Promise<void> {
   if (command === "mcp") {
     const { runMCPServer } = await import("./mcp/server.js");
     await runMCPServer();
+    return;
+  }
+
+  if (command === "upgrade") {
+    await runSetup();
+    console.log("");
+    console.log("Upgraded! Next:");
+    console.log("  agentifyer mcp      # Start MCP server");
+    console.log("  agentifyer status   # Check workspace");
     return;
   }
 
