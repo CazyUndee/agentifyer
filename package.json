@@ -1,6 +1,6 @@
 {
   "name": "agentifyer",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "File-backed workspace for orchestrating coding agents - use as a shared backend for AI coding tools",
   "type": "module",
   "main": "./dist/cli.js",
