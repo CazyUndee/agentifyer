@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { cwd } from "node:process";
 import { listInboxMessages, replyToMessage, sendMessage } from "./core/mail.js";
 import { writeMemoryNote, listMemoryNotes, readMemoryNote } from "./core/memory.js";
