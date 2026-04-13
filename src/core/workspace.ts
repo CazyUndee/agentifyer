@@ -50,9 +50,9 @@ This workspace uses agentifyer for multi-agent orchestration.
 
 ## Quick Start
 
-1. Run \`npx agentifyer setup\` to configure
-2. Source: \`source ~/.agentifyer/agentifyer.sh\` (add to shell config)
-3. Now use: \`af-init\`, \`af-spawn\`, \`af-send\`, etc.
+1. Run \`agentifyer setup\` to configure
+2. Add to PATH: set PATH=%USERPROFILE%\\.agentifyer\\bin;%PATH%
+3. Now use: agentifyer init, agentifyer spawn, agentifyer send, etc.
 
 ## MCP Server (Claude Code)
 
