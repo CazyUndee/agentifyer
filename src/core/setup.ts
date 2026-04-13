@@ -10,17 +10,28 @@ import type { AgentConfig, SupportedAgent } from "../schema/types.js";
 const AGENTIFYER_CONFIG_DIR = join(homedir(), ".agentifyer");
 const AGENTIFYER_CONFIG_FILE = join(AGENTIFYER_CONFIG_DIR, "config.json");
 
+const c = (r: number, g: number, b: number) => `\x1b[38;2;${r};${g};${b}m`;
+
 const styles = {
   reset: "\x1b[0m",
   bold: "\x1b[1m",
   dim: "\x1b[2m",
-  cyan: "\x1b[36m",
-  green: "\x1b[32m",
-  yellow: "\x1b[33m",
-  red: "\x1b[31m",
-  blue: "\x1b[34m",
-  magenta: "\x1b[35m",
-  gray: "\x1b[90m"
+  text: c(240, 237, 232),
+  muted: c(150, 148, 145),
+  accent: c(201, 122, 122),
+  accentDark: c(107, 35, 35),
+  accentHover: c(125, 42, 42),
+  success: c(107, 196, 122),
+  successDark: c(30, 80, 40),
+  warning: c(196, 164, 58),
+  warningDark: c(80, 60, 20),
+  error: c(196, 107, 107),
+  errorDark: c(80, 20, 20),
+  info: c(107, 168, 196),
+  infoDark: c(20, 53, 80),
+  surface: c(17, 17, 17),
+  surface2: c(26, 26, 26),
+  surface3: c(34, 34, 34),
 };
 
 function log(text: string): void {
@@ -28,12 +39,12 @@ function log(text: string): void {
 }
 
 function header(text: string): void {
-  console.log(`${styles.bold}${styles.cyan}${text}${styles.reset}`);
+  console.log(`${styles.bold}${styles.accent}${text}${styles.reset}`);
 }
 
 function item(num: string, text: string, selected = false): void {
-  const marker = selected ? `${styles.green}>` : " ";
-  const style = selected ? styles.bold : styles.dim;
+  const marker = selected ? `${styles.accent}>` : " ";
+  const style = selected ? styles.bold : styles.muted;
   console.log(`${marker} ${style}${text}${styles.reset}`);
 }
 
@@ -44,7 +55,7 @@ function prompt(question: string): Promise<string> {
   });
 
   return new Promise((resolve) => {
-    rl.question(`${styles.yellow}?${styles.reset} ${question}`, (answer) => {
+    rl.question(`${styles.warning}?${styles.reset} ${question}`, (answer) => {
       rl.close();
       resolve(answer.trim());
     });
@@ -59,8 +70,8 @@ export async function runSetup(): Promise<AgentConfig> {
   console.log("");
 
   if (availableAgents.length === 0) {
-    log(`${styles.red}No agent CLIs found in your PATH.${styles.reset}`);
-    log(`${styles.dim}Supported: claude, aider, cursor, windsurf, roocode, opencode, cline${styles.reset}`);
+    log(`${styles.error}No agent CLIs found in your PATH.${styles.reset}`);
+    log(`${styles.muted}Supported: claude, aider, cursor, windsurf, roocode, opencode, cline${styles.reset}`);
     console.log("");
     log("Install one and run setup again.");
     return {
@@ -72,10 +83,10 @@ export async function runSetup(): Promise<AgentConfig> {
 
   log(`${styles.bold}Detected agent CLIs:${styles.reset}`);
   for (let i = 0; i < availableAgents.length; i++) {
-    log(`  ${styles.cyan}${i + 1}.${styles.reset} ${availableAgents[i]}`);
+    log(`  ${styles.accent}${i + 1}.${styles.reset} ${availableAgents[i]}`);
   }
-  log(`  ${styles.yellow}a.${styles.reset} all of them`);
-  log(`  ${styles.gray}c.${styles.reset} custom (manual config)`);
+  log(`  ${styles.warning}a.${styles.reset} all of them`);
+  log(`  ${styles.muted}c.${styles.reset} custom (manual config)`);
   console.log("");
 
   const answer = await prompt("Select (number, a, or c)");
@@ -95,7 +106,7 @@ export async function runSetup(): Promise<AgentConfig> {
   }
 
   console.log("");
-  log(`${styles.green}Selected:${styles.reset} ${Array.isArray(selection) ? selection.join(", ") : selection}`);
+  log(`${styles.success}Selected:${styles.reset} ${Array.isArray(selection) ? selection.join(", ") : selection}`);
   console.log("");
 
   const config: AgentConfig = {
