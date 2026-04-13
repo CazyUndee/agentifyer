@@ -326,8 +326,7 @@ async function main(): Promise<void> {
     if (!doSetup && !startMcp) {
       console.log("");
       console.log("Next steps:");
-      console.log("  agentifyer setup     # Configure agent CLIs");
-      console.log("  agentifyer mcp      # Start MCP server");
+      console.log("  agentifyer mcp      # Start MCP server (optional)");
     }
 
     return;
