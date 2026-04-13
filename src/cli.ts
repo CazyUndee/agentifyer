@@ -302,32 +302,20 @@ async function main(): Promise<void> {
   }
 
   if (command === "init") {
-    const doSetup = getBooleanOption(parsedArgs.options, "setup");
-    const startMcp = getBooleanOption(parsedArgs.options, "mcp");
-
     const workspaceRoot = await initializeWorkspace(cwd());
 
     if (jsonMode) {
       console.log(JSON.stringify({ workspaceRoot }));
     } else {
       console.log(`Initialized workspace at ${workspaceRoot}`);
-    }
-
-    if (doSetup) {
-      const config = await runSetup();
-      console.log(JSON.stringify(config, null, 2));
-    }
-
-    if (startMcp) {
-      const { runMCPServer } = await import("./mcp/server.js");
-      await runMCPServer();
-    }
-
-    if (!doSetup && !startMcp) {
       console.log("");
-      console.log("Next steps:");
-      console.log("  agentifyer mcp      # Start MCP server (optional)");
+      await runSetup();
     }
+
+    console.log("");
+    console.log("Next steps:");
+    console.log("  agentifyer mcp      # Start MCP server (optional)");
+    console.log("  agentifyer status   # Check workspace");
 
     return;
   }

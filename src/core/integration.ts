@@ -91,10 +91,10 @@ function af-recover; agentifyer recover $argv; end
 `;
   await writeFile(fishFile, fishContents, "utf8");
 
-  console.log(`${styles.success}✓${styles.reset} Copied CLI to ~/.agentifyer/bin/`);
+console.log(`${styles.success}✓${styles.reset} Copied CLI to ~/.agentifyer/bin/`);
   console.log("");
-  console.log(`${styles.bold}Next steps:${styles.reset}`);
-  console.log(`  ${styles.dim}1.${styles.reset} ${styles.text}Add to PATH:${styles.reset} ${styles.dim}set PATH=%USERPROFILE%\\.agentifyer\\bin;%PATH%${styles.reset}`);
-  console.log(`  ${styles.dim}2.${styles.reset} ${styles.text}Run:${styles.reset} ${styles.accent}agentifyer init${styles.reset}`);
+  console.log(`${styles.bold}Next:${styles.reset}`);
+  console.log(`  ${styles.accent}agentifyer mcp${styles.reset} ${styles.muted}# Start MCP server for Claude Code${styles.reset}`);
+  console.log(`  ${styles.accent}agentifyer status${styles.reset} ${styles.muted}# Check workspace${styles.reset}`);
   console.log("");
 }
